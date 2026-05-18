@@ -665,11 +665,11 @@ export default function MarketPreferencePage() {
                   I embed as your commercial strategy partner — not your vendor.
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 36 }}>
-                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Acino. 15+ markets across GCC, MEA, and LATAM. The work is always the same: make the market choose you.
+                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 15+ markets across GCC, MEA, and LATAM. The work is always the same: make the market choose you.
                 </p>
 
                 <ul style={{ display: "flex", gap: 10, flexWrap: "wrap", listStyle: "none" }}>
-                  {["J&J", "Unilever", "Mundipharma", "Acino", "FacePhi"].map(name => (
+                  {["J&J", "Unilever", "Mundipharma", "Strategy Tools", "FacePhi"].map(name => (
                     <li key={name} style={{
                       fontFamily: F.mono, fontSize: 10, fontWeight: 500,
                       letterSpacing: "0.1em", textTransform: "uppercase",
