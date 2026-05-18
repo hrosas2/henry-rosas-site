@@ -779,7 +779,7 @@ export default function MarketPreferencePage() {
                     alt="Henry Rosas, Market Preference Engineering"
                     onError={(e) => { e.currentTarget.style.display = "none"; }}
                   />
-                  <div className="portrait-placeholder">Portrait — add henry-portrait.png</div>
+                  <div className="portrait-placeholder"></div>
                 </div>
               </div>
             </Reveal>
