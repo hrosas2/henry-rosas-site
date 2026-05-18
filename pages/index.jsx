@@ -19,7 +19,7 @@ import { useState, useEffect, useRef } from "react";
 // ─── CONFIGURATION ────────────────────────────────────────────
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mkoenzqw";
 const LINKEDIN_URL = "https://www.linkedin.com/in/henry-rosas/";
-const CONTACT_EMAIL = "henry@consumerhealth.me";
+const CONTACT_EMAIL = "henry.rosas@rosashenry.com";
 
 // ─── DESIGN TOKENS ────────────────────────────────────────────
 // Note: inkMuted and inkFaint darkened from original to meet WCAG AA contrast
@@ -157,7 +157,7 @@ export default function MarketPreferencePage() {
       if (!res.ok) throw new Error(`Submission failed (${res.status})`);
       setSent(true);
     } catch (err) {
-      setSubmitError("Something went wrong. Please email henry@consumerhealth.me directly.");
+      setSubmitError("Something went wrong. Please email henry.rosas@rosashenry.com directly.");
     } finally {
       setSubmitting(false);
     }

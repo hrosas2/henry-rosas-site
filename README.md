@@ -37,7 +37,7 @@ All site-wide values live at the top of `pages/index.jsx`:
 ```js
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mkoenzqw";
 const LINKEDIN_URL = "https://www.linkedin.com/in/henry-rosas/";
-const CONTACT_EMAIL = "henry@consumerhealth.me";
+const CONTACT_EMAIL = "henry.rosas@rosashenry.com";
 ```
 
 SEO meta tags (title, description, Open Graph, Twitter card) live in `pages/_document.jsx`. Update the `og:url` and `og:image` once you have a production URL and a social-share image.
