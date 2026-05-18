@@ -772,14 +772,14 @@ export default function MarketPreferencePage() {
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 16 }}>
                   30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 15+ markets across GCC, MEA, and LATAM. The work is always the same: make the market choose you.
                 </p>
-                {/* Portrait slot — drop a photo at /public/henry-portrait.jpg to populate */}
+                {/* Portrait slot — drop a photo at /public/henry-portrait.png (or .jpg) to populate */}
                 <div className="portrait-wrap" style={{ marginTop: 28, maxWidth: 360 }}>
                   <img
-                    src="/henry-portrait.jpg"
+                    src="/henry-portrait.png"
                     alt="Henry Rosas, Market Preference Engineering"
                     onError={(e) => { e.currentTarget.style.display = "none"; }}
                   />
-                  <div className="portrait-placeholder">Portrait — add henry-portrait.jpg</div>
+                  <div className="portrait-placeholder">Portrait — add henry-portrait.png</div>
                 </div>
               </div>
             </Reveal>
