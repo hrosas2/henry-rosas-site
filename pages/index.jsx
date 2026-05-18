@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { getPublishedCaseStudies } from "../data/case-studies";
 
 /*
  * ═══════════════════════════════════════════════════════════════
@@ -241,7 +243,13 @@ export default function MarketPreferencePage() {
   const gutter = "clamp(24px, 5vw, 64px)";
   const maxW = 1240;
 
-  const navItems = ["Thesis", "Territory", "Work", "Connect"];
+  // Nav items — supports both same-page anchors (href: "#…") and routes (href: "/…")
+  const navItems = [
+    { label: "Thesis", href: "#thesis" },
+    { label: "Engagements", href: "#work" },
+    { label: "Case Studies", href: "/work" },
+    { label: "Connect", href: "#connect" },
+  ];
 
   const pillars = [
     { id: "rel", n: "01", title: "Relevance", q: "Why do businesses become invisible?", body: "Markets don't punish bad companies. They ignore irrelevant ones. Relevance is the prerequisite for every other commercial metric — and it decays faster than most leaders realize." },
@@ -301,16 +309,20 @@ export default function MarketPreferencePage() {
             color: T.ink, textDecoration: "none",
           }}>Henry Rosas</a>
           <div className="nav-items" style={{ display: "flex", gap: 28, alignItems: "center" }}>
-            {navItems.map(n => (
-              <a key={n} href={`#${n.toLowerCase()}`} style={{
-                fontFamily: F.mono, fontSize: 10, fontWeight: 400,
-                letterSpacing: "0.12em", textTransform: "uppercase",
-                color: T.inkMuted, textDecoration: "none", transition: "color 0.25s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.color = T.ink}
-                onMouseLeave={e => e.currentTarget.style.color = T.inkMuted}
-              >{n}</a>
-            ))}
+            {navItems.map(n => {
+              const isRoute = n.href.startsWith("/");
+              const Tag = isRoute ? Link : "a";
+              return (
+                <Tag key={n.label} href={n.href} style={{
+                  fontFamily: F.mono, fontSize: 10, fontWeight: 400,
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: T.inkMuted, textDecoration: "none", transition: "color 0.25s",
+                }}
+                  onMouseEnter={e => e.currentTarget.style.color = T.ink}
+                  onMouseLeave={e => e.currentTarget.style.color = T.inkMuted}
+                >{n.label}</Tag>
+              );
+            })}
             <a href="#connect" onClick={() => track("nav_cta")} style={{
               fontFamily: F.mono, fontSize: 10, fontWeight: 500,
               letterSpacing: "0.12em", textTransform: "uppercase",
@@ -356,8 +368,8 @@ export default function MarketPreferencePage() {
       >
         {navItems.map((n, i) => (
           <a
-            key={n}
-            href={`#${n.toLowerCase()}`}
+            key={n.label}
+            href={n.href}
             onClick={() => setMobileMenuOpen(false)}
             style={{
               fontFamily: F.serif, fontSize: 32, fontWeight: 400,
@@ -368,7 +380,7 @@ export default function MarketPreferencePage() {
               opacity: mobileMenuOpen ? 1 : 0,
               transition: `all 0.4s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.05}s`,
             }}
-          >{n}</a>
+          >{n.label}</a>
         ))}
         <a
           href="#connect"
@@ -841,6 +853,87 @@ export default function MarketPreferencePage() {
               ))}
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* SELECTED WORK (teaser linking to /work)                  */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section aria-labelledby="selected-work-heading" style={{ padding: `100px ${gutter} 120px` }}>
+        <div style={{ maxWidth: maxW, margin: "0 auto" }}>
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
+              <div>
+                <Mono style={{ color: T.inkFaint, display: "block", marginBottom: 14 }}>Selected Work</Mono>
+                <h2 id="selected-work-heading" className="sect-title" style={{
+                  fontFamily: F.serif,
+                  fontSize: "clamp(28px, 3.5vw, 40px)",
+                  fontWeight: 400, lineHeight: 1.2,
+                  color: T.ink, maxWidth: 560,
+                }}>
+                  Engagements where the market <em>chose</em>.
+                </h2>
+              </div>
+              <Link href="/work" style={{
+                fontFamily: F.mono, fontSize: 11, fontWeight: 500,
+                letterSpacing: "0.12em", textTransform: "uppercase",
+                color: T.ink, textDecoration: "none",
+                padding: "12px 24px",
+                border: `1.5px solid ${T.ink}`,
+                transition: "all 0.25s",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = T.neon; e.currentTarget.style.borderColor = T.neon; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = T.ink; }}
+              >See all case studies →</Link>
+            </div>
+          </Reveal>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 24,
+          }}>
+            {getPublishedCaseStudies().slice(0, 3).map((c, i) => (
+              <Reveal key={c.slug} delay={i * 0.07}>
+                <Link href={`/work/${c.slug}`} style={{
+                  display: "block",
+                  background: T.white,
+                  border: `1px solid ${T.lineMed}`,
+                  textDecoration: "none",
+                  color: "inherit",
+                  height: "100%",
+                  transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s",
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.borderColor = T.ink; e.currentTarget.style.boxShadow = `0 12px 30px rgba(26,26,26,0.08)`; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = T.lineMed; e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  <div style={{
+                    aspectRatio: "16 / 10",
+                    background: `linear-gradient(135deg, ${T.bgAlt}, ${T.bgDark})`,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}>
+                    <div style={{ position: "absolute", bottom: 20, left: 20 }}>
+                      <div style={{ fontFamily: F.serif, fontSize: 44, fontWeight: 400, lineHeight: 1, color: T.ink }}>{c.headlineStat}</div>
+                      <Mono style={{ color: T.inkMuted, marginTop: 6, display: "block" }}>{c.headlineLabel}</Mono>
+                    </div>
+                  </div>
+                  <div style={{ padding: 22 }}>
+                    <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+                      <Mono style={{ color: T.inkFaint }}>{c.industry}</Mono>
+                      <Mono style={{ color: T.inkFaint }}>·</Mono>
+                      <Mono style={{ color: T.inkFaint }}>{c.region}</Mono>
+                    </div>
+                    <h3 style={{
+                      fontFamily: F.serif, fontSize: 20, fontWeight: 500,
+                      lineHeight: 1.3, color: T.ink, marginBottom: 10,
+                    }}>{c.title}</h3>
+                    <p style={{ fontSize: 13, lineHeight: 1.65, color: T.inkMuted }}>{c.summary}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
