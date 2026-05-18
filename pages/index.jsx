@@ -419,7 +419,7 @@ export default function MarketPreferencePage() {
             opacity: ready ? 1 : 0,
             transition: "opacity 0.8s ease 0.9s",
           }}>
-            We help businesses align strategy, brand, experience, and commercial execution — so the market chooses them first.
+            We help businesses align strategy, brand, experience, and commercial execution, so the market chooses them first.
           </p>
 
           {/* CTAs */}
@@ -662,10 +662,10 @@ export default function MarketPreferencePage() {
                   fontWeight: 400, lineHeight: 1.25,
                   color: T.ink, marginBottom: 28,
                 }}>
-                  I embed as your commercial strategy partner — not your vendor.
+                  I embed as your commercial strategy partner, not your vendor.
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 36 }}>
-                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 15+ markets across GCC, MEA, and LATAM. The work is always the same: make the market choose you.
+                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 45+ markets across MEA, and LATAM. The work is always the same: make the market choose you.
                 </p>
 
                 <ul style={{ display: "flex", gap: 10, flexWrap: "wrap", listStyle: "none" }}>
@@ -719,7 +719,7 @@ export default function MarketPreferencePage() {
         }}>
           {[
             { n: "30+", l: "Years" },
-            { n: "15+", l: "Markets" },
+            { n: "45+", l: "Markets" },
             { n: "4", l: "Global MNCs" },
             { n: "50+", l: "Brand Launches" },
           ].map((s, i) => (
@@ -757,10 +757,10 @@ export default function MarketPreferencePage() {
                 fontSize: 22, fontWeight: 400, fontStyle: "italic",
                 lineHeight: 1.6, color: T.ink, marginBottom: 24,
               }}>
-                Henry doesn't advise from a distance — he builds the systems, trains the teams, and stays until the market responds. Two years later, the frameworks are still running.
+                Henry doesn't advise from a distance, he builds the systems, trains the teams, and stays until the market responds. Two years later, the frameworks are still running.
               </p>
               <footer>
-                <Mono style={{ color: T.inkFaint }}>Regional Commercial Director — GCC Pharma</Mono>
+                <Mono style={{ color: T.inkFaint }}>Regional Commercial Director / GCC Pharma</Mono>
               </footer>
             </blockquote>
           </Reveal>
@@ -948,7 +948,7 @@ export default function MarketPreferencePage() {
               Henry Rosas
             </div>
             <p style={{ fontSize: 13, color: T.inkMuted, lineHeight: 1.7 }}>
-              Market Preference Engineering for pharma, FMCG, and B2B technology.
+              Market Preference Engineering for Healthcare, Pharma, Personal Care, FMCG, and B2B technology.
             </p>
           </div>
           <div>
