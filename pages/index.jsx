@@ -171,11 +171,11 @@ export default function MarketPreferencePage() {
   const navItems = ["Thesis", "Territory", "Work", "Connect"];
 
   const pillars = [
-    { id: "rel", n: "01", title: "Relevance", q: "Why do businesses become invisible?", body: "Markets don't punish bad companies. They ignore irrelevant ones. Relevance is the prerequisite for every other commercial metric — and it decays faster than most leaders realize." },
-    { id: "tru", n: "02", title: "Trust", q: "Why do customers hesitate to buy?", body: "Price is rarely the real barrier. Trust is. It's built through consistency between what you promise, what you deliver, and what others say when you're not in the room." },
-    { id: "exp", n: "03", title: "Commercial Experience", q: "Why does CX impact revenue more than campaigns?", body: "Every interaction is a commercial event. The pharmacy counter. The onboarding call. The invoice design. Companies that treat experience as a revenue driver outperform those that treat it as a department." },
-    { id: "cla", n: "04", title: "Strategic Clarity", q: "Why do confused brands lose market share?", body: "When a company can't articulate why it exists in one sentence, the market can't either. Clarity is not simplification — it's the discipline of knowing what you are and what you're not." },
-    { id: "pre", n: "05", title: "Market Preference", q: "Why do customers choose competitors with inferior products?", body: "Because being chosen is not a function of being better. It's a function of being understood, trusted, and top-of-mind at the moment of decision. That's engineerable." },
+    { id: "rel", n: "01", title: "Relevance", q: "Do customers immediately understand why you matter?", body: "Markets ignore brands that speak from the inside out. Relevance is created when your offer connects directly to a visible customer problem, market tension, or growth opportunity." },
+    { id: "tru", n: "02", title: "Trust", q: "Does the market believe you can deliver?", body: "Trust reduces perceived risk. It is built through proof, credibility, consistency, leadership visibility, customer evidence, and a clear reason to believe." },
+    { id: "exp", n: "03", title: "Commercial Experience", q: "Is every interaction making it easier to choose you?", body: "Commercial experience turns interest into conversion. Every touchpoint, sales, service, content, onboarding, channel, and follow-up, either increases confidence or creates friction." },
+    { id: "cla", n: "04", title: "Strategic Clarity", q: "Is your strategy simple enough for the market and your team to act on?", body: "Confused brands lose momentum. Strategic clarity aligns positioning, audience, offer, message, channel, and execution so the business moves in one direction." },
+    { id: "pre", n: "05", title: "Market Preference", q: "Are you the easiest, safest, and most valuable choice?", body: "Markets do not always choose the best product or service. They choose the brand that feels most relevant, credible, accessible, differentiated, and commercially compelling." },
   ];
 
   const formFields = [
@@ -662,7 +662,7 @@ export default function MarketPreferencePage() {
                   fontWeight: 400, lineHeight: 1.25,
                   color: T.ink, marginBottom: 28,
                 }}>
-                  I embed as your commercial strategy partner, not your vendor.
+                  I work inside your business to turn strategy into commercial growth.
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 36 }}>
                   30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 45+ markets across MEA, and LATAM. The work is always the same: make the market choose you.
@@ -686,11 +686,11 @@ export default function MarketPreferencePage() {
             <Reveal delay={0.12}>
               <ul style={{ listStyle: "none" }}>
                 {[
-                  { label: "Fractional CMO", desc: "Embedded senior leadership. 2–3 days per week. I own outcomes, not reports." },
-                  { label: "Commercial Strategy", desc: "Positioning, GTM architecture, and market-entry frameworks built for regional complexity." },
-                  { label: "Brand as Commercial Asset", desc: "Strategy that connects brand to revenue — not brand to aesthetics." },
-                  { label: "Capability Building", desc: "KAM training, commercial playbooks, and team development that transfers knowledge permanently." },
-                  { label: "Omnichannel & Digital", desc: "HCP engagement, content ecosystems, and digital transformation for regulated industries." },
+                  { label: "Embedded Commercial Leadership", desc: "Fractional CMO support for companies that need senior leadership 2–3 days per week — with ownership of outcomes, priorities, and execution rhythm." },
+                  { label: "Growth & Market Strategy", desc: "Positioning, market-entry strategy, GTM architecture, and commercial roadmaps built for complex regional markets." },
+                  { label: "Brand as Revenue Asset", desc: "Brand strategy that connects positioning, differentiation, trust, and customer preference to measurable commercial growth." },
+                  { label: "Sales & Capability Building", desc: "KAM training, commercial playbooks, sales tools, and team development systems that transfer knowledge permanently." },
+                  { label: "Omnichannel & Digital Acceleration", desc: "Content ecosystems, HCP/customer engagement, CRM journeys, and digital transformation for regulated and complex industries." },
                 ].map((s, i) => (
                   <li key={i} style={{
                     padding: "22px 0",
@@ -799,13 +799,13 @@ export default function MarketPreferencePage() {
                   Is the market<br />choosing you?
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 32 }}>
-                  A 30-minute strategy conversation. No pitch. No pressure. We'll diagnose where preference is breaking down and whether this engagement makes sense for both of us.
+                  Book a 30-minute strategy diagnostic. No pitch. No pressure. We will identify where your growth is being blocked, where preference is breaking down, and whether I am the right partner to help you fix it.
                 </p>
                 <ol style={{ listStyle: "none" }}>
                   {[
-                    "Map your commercial preference gaps",
-                    "Identify which force to address first",
-                    "Determine if there's a genuine fit",
+                    "Map the gaps between your strategy, brand, customer experience, and commercial execution",
+                    "Identify the highest-impact growth lever to address first",
+                    "Decide whether there is a strong fit for a focused advisory engagement",
                   ].map((item, i) => (
                     <li key={i} style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 14 }}>
                       <Mono style={{ color: T.inkFaint }}>0{i + 1}</Mono>
