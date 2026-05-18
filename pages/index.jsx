@@ -96,6 +96,79 @@ function Mono({ children, style = {} }) {
   return <span style={{ fontFamily: F.mono, fontSize: 10, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase", color: T.inkMuted, ...style }}>{children}</span>;
 }
 
+// Counter — counts up from 0 to target when scrolled into view
+// Accepts strings like "30+", "15+", "4", "50+" — strips suffix, animates number, re-appends suffix
+function Counter({ value, duration = 1400 }) {
+  const match = String(value).match(/^(\d+)(.*)$/);
+  const target = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? match[2] : "";
+  const [ref, inView] = useInView(0.3);
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const start = performance.now();
+    let raf;
+    const step = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setN(Math.round(eased * target));
+      if (t < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, target, duration]);
+
+  return <span ref={ref} className="counter">{n}{suffix}</span>;
+}
+
+// CustomCursor — subtle dot follows mouse, grows on interactive hover
+function CustomCursor() {
+  const dotRef = useRef(null);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Skip on touch devices
+    if (window.matchMedia("(hover: none)").matches) return;
+    const dot = dotRef.current;
+    if (!dot) return;
+
+    let x = window.innerWidth / 2, y = window.innerHeight / 2;
+    let cx = x, cy = y;
+
+    const onMove = (e) => { x = e.clientX; y = e.clientY; dot.classList.remove("hidden"); };
+    const onLeave = () => dot.classList.add("hidden");
+    const onOver = (e) => {
+      const interactive = e.target.closest("a, button, [role='button'], input, textarea, label");
+      if (interactive) dot.classList.add("hover");
+      else dot.classList.remove("hover");
+    };
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mouseover", onOver);
+
+    let raf;
+    const tick = () => {
+      // Lerp for smoothness
+      cx += (x - cx) * 0.22;
+      cy += (y - cy) * 0.22;
+      dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mouseover", onOver);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return <div ref={dotRef} className="cursor-dot hidden" aria-hidden="true" />;
+}
+
 function track(name, props = {}) {
   if (typeof window !== "undefined" && window.posthog) window.posthog.capture(name, props);
 }
@@ -171,11 +244,11 @@ export default function MarketPreferencePage() {
   const navItems = ["Thesis", "Territory", "Work", "Connect"];
 
   const pillars = [
-    { id: "rel", n: "01", title: "Relevance", q: "Do customers immediately understand why you matter?", body: "Markets ignore brands that speak from the inside out. Relevance is created when your offer connects directly to a visible customer problem, market tension, or growth opportunity." },
-    { id: "tru", n: "02", title: "Trust", q: "Does the market believe you can deliver?", body: "Trust reduces perceived risk. It is built through proof, credibility, consistency, leadership visibility, customer evidence, and a clear reason to believe." },
-    { id: "exp", n: "03", title: "Commercial Experience", q: "Is every interaction making it easier to choose you?", body: "Commercial experience turns interest into conversion. Every touchpoint, sales, service, content, onboarding, channel, and follow-up, either increases confidence or creates friction." },
-    { id: "cla", n: "04", title: "Strategic Clarity", q: "Is your strategy simple enough for the market and your team to act on?", body: "Confused brands lose momentum. Strategic clarity aligns positioning, audience, offer, message, channel, and execution so the business moves in one direction." },
-    { id: "pre", n: "05", title: "Market Preference", q: "Are you the easiest, safest, and most valuable choice?", body: "Markets do not always choose the best product or service. They choose the brand that feels most relevant, credible, accessible, differentiated, and commercially compelling." },
+    { id: "rel", n: "01", title: "Relevance", q: "Why do businesses become invisible?", body: "Markets don't punish bad companies. They ignore irrelevant ones. Relevance is the prerequisite for every other commercial metric — and it decays faster than most leaders realize." },
+    { id: "tru", n: "02", title: "Trust", q: "Why do customers hesitate to buy?", body: "Price is rarely the real barrier. Trust is. It's built through consistency between what you promise, what you deliver, and what others say when you're not in the room." },
+    { id: "exp", n: "03", title: "Commercial Experience", q: "Why does CX impact revenue more than campaigns?", body: "Every interaction is a commercial event. The pharmacy counter. The onboarding call. The invoice design. Companies that treat experience as a revenue driver outperform those that treat it as a department." },
+    { id: "cla", n: "04", title: "Strategic Clarity", q: "Why do confused brands lose market share?", body: "When a company can't articulate why it exists in one sentence, the market can't either. Clarity is not simplification — it's the discipline of knowing what you are and what you're not." },
+    { id: "pre", n: "05", title: "Market Preference", q: "Why do customers choose competitors with inferior products?", body: "Because being chosen is not a function of being better. It's a function of being understood, trusted, and top-of-mind at the moment of decision. That's engineerable." },
   ];
 
   const formFields = [
@@ -188,6 +261,9 @@ export default function MarketPreferencePage() {
     <>
       {/* Global styles live in /styles/globals.css (imported in _app.jsx).
           This avoids React hydration mismatches caused by inline <style> blocks. */}
+
+      {/* ─── CUSTOM CURSOR ────────────────────────────────── */}
+      <CustomCursor />
 
       {/* ─── ARCHITECTURAL GRID TEXTURE (fixed background) ─── */}
       <div aria-hidden="true" style={{
@@ -320,6 +396,23 @@ export default function MarketPreferencePage() {
         padding: `140px ${gutter} 100px`,
         position: "relative", overflow: "hidden",
       }}>
+        {/* ─ Hero video background (optional) ────────────────── */}
+        {/* Drop a looping MP4 at /public/hero-loop.mp4 to enable.
+            Falls back silently when no video file exists. */}
+        <div className="hero-video-wrap" aria-hidden="true">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero-poster.jpg"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          >
+            <source src="/hero-loop.mp4" type="video/mp4" />
+          </video>
+        </div>
+
         {/* ─ Neon geometric accent: circle ─ */}
         <div aria-hidden="true" style={{
           position: "absolute",
@@ -419,7 +512,7 @@ export default function MarketPreferencePage() {
             opacity: ready ? 1 : 0,
             transition: "opacity 0.8s ease 0.9s",
           }}>
-            We help businesses align strategy, brand, experience, and commercial execution, so the market chooses them first.
+            We help businesses align strategy, brand, experience, and commercial execution — so the market chooses them first.
           </p>
 
           {/* CTAs */}
@@ -662,35 +755,31 @@ export default function MarketPreferencePage() {
                   fontWeight: 400, lineHeight: 1.25,
                   color: T.ink, marginBottom: 28,
                 }}>
-                  I work inside your business to turn strategy into commercial growth.
+                  I embed as your commercial strategy partner — not your vendor.
                 </h2>
-                <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 36 }}>
-                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 45+ markets across MEA, and LATAM. The work is always the same: make the market choose you.
+                <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 16 }}>
+                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 15+ markets across GCC, MEA, and LATAM. The work is always the same: make the market choose you.
                 </p>
-
-                <ul style={{ display: "flex", gap: 10, flexWrap: "wrap", listStyle: "none" }}>
-                  {["J&J", "Unilever", "Mundipharma", "Strategy Tools", "FacePhi"].map(name => (
-                    <li key={name} style={{
-                      fontFamily: F.mono, fontSize: 10, fontWeight: 500,
-                      letterSpacing: "0.1em", textTransform: "uppercase",
-                      color: T.inkFaint,
-                      padding: "6px 14px",
-                      border: `1px solid ${T.lineMed}`,
-                      background: T.white,
-                    }}>{name}</li>
-                  ))}
-                </ul>
+                {/* Portrait slot — drop a photo at /public/henry-portrait.jpg to populate */}
+                <div className="portrait-wrap" style={{ marginTop: 28, maxWidth: 360 }}>
+                  <img
+                    src="/henry-portrait.jpg"
+                    alt="Henry Rosas, Market Preference Engineering"
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                  <div className="portrait-placeholder">Portrait — add henry-portrait.jpg</div>
+                </div>
               </div>
             </Reveal>
 
             <Reveal delay={0.12}>
               <ul style={{ listStyle: "none" }}>
                 {[
-                  { label: "Embedded Commercial Leadership", desc: "Fractional CMO support for companies that need senior leadership 2–3 days per week — with ownership of outcomes, priorities, and execution rhythm." },
-                  { label: "Growth & Market Strategy", desc: "Positioning, market-entry strategy, GTM architecture, and commercial roadmaps built for complex regional markets." },
-                  { label: "Brand as Revenue Asset", desc: "Brand strategy that connects positioning, differentiation, trust, and customer preference to measurable commercial growth." },
-                  { label: "Sales & Capability Building", desc: "KAM training, commercial playbooks, sales tools, and team development systems that transfer knowledge permanently." },
-                  { label: "Omnichannel & Digital Acceleration", desc: "Content ecosystems, HCP/customer engagement, CRM journeys, and digital transformation for regulated and complex industries." },
+                  { label: "Fractional CMO", desc: "Embedded senior leadership. 2–3 days per week. I own outcomes, not reports." },
+                  { label: "Commercial Strategy", desc: "Positioning, GTM architecture, and market-entry frameworks built for regional complexity." },
+                  { label: "Brand as Commercial Asset", desc: "Strategy that connects brand to revenue — not brand to aesthetics." },
+                  { label: "Capability Building", desc: "KAM training, commercial playbooks, and team development that transfers knowledge permanently." },
+                  { label: "Omnichannel & Digital", desc: "HCP engagement, content ecosystems, and digital transformation for regulated industries." },
                 ].map((s, i) => (
                   <li key={i} style={{
                     padding: "22px 0",
@@ -710,6 +799,52 @@ export default function MarketPreferencePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
+      {/* BRAND MARQUEE                                            */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* Logo files go in /public/logos/. If a file is missing the chip
+          falls back to the brand name in editorial mono — works either way. */}
+      <section aria-label="Companies Henry has worked with" style={{
+        padding: `48px 0`,
+        borderTop: `1px solid ${T.line}`,
+        borderBottom: `1px solid ${T.line}`,
+        background: T.bg,
+      }}>
+        <div style={{ maxWidth: maxW, margin: "0 auto 28px", padding: `0 ${gutter}` }}>
+          <Mono style={{ color: T.inkFaint }}>Shaped commercial work at</Mono>
+        </div>
+        <div className="marquee">
+          {/* Duplicate the list so the scroll loops seamlessly */}
+          {[0, 1].map(set => (
+            <div key={set} className="marquee-track" aria-hidden={set === 1 ? "true" : undefined}>
+              {[
+                { name: "Johnson & Johnson", logo: "/logos/jj.svg" },
+                { name: "Unilever", logo: "/logos/unilever.svg" },
+                { name: "Mundipharma", logo: "/logos/mundipharma.svg" },
+                { name: "Strategy Tools", logo: "/logos/strategy-tools.svg" },
+                { name: "FacePhi", logo: "/logos/facephi.svg" },
+              ].map((b, i) => (
+                <div key={i} className="brand-chip">
+                  {/* Image is hidden by default; only revealed if the file loads.
+                      Text is shown by default. No flash of broken-image icon. */}
+                  <img
+                    src={b.logo}
+                    alt=""
+                    style={{ display: "none" }}
+                    onLoad={(e) => {
+                      e.currentTarget.style.display = "block";
+                      const fallback = e.currentTarget.nextSibling;
+                      if (fallback) fallback.style.display = "none";
+                    }}
+                  />
+                  <span>{b.name}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
       {/* STATS                                                    */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section aria-label="Career statistics" style={{ padding: `72px ${gutter}`, borderBottom: `1px solid ${T.line}` }}>
@@ -719,7 +854,7 @@ export default function MarketPreferencePage() {
         }}>
           {[
             { n: "30+", l: "Years" },
-            { n: "45+", l: "Markets" },
+            { n: "15+", l: "Markets" },
             { n: "4", l: "Global MNCs" },
             { n: "50+", l: "Brand Launches" },
           ].map((s, i) => (
@@ -728,7 +863,7 @@ export default function MarketPreferencePage() {
                 <dt style={{
                   fontFamily: F.serif, fontSize: 52, fontWeight: 400,
                   color: T.ink, lineHeight: 1,
-                }}>{s.n}</dt>
+                }}><Counter value={s.n} /></dt>
                 <dd>
                   <Mono style={{ color: T.inkFaint, marginTop: 8, display: "block" }}>{s.l}</Mono>
                 </dd>
@@ -757,10 +892,10 @@ export default function MarketPreferencePage() {
                 fontSize: 22, fontWeight: 400, fontStyle: "italic",
                 lineHeight: 1.6, color: T.ink, marginBottom: 24,
               }}>
-                Henry doesn't advise from a distance, he builds the systems, trains the teams, and stays until the market responds. Two years later, the frameworks are still running.
+                Henry doesn't advise from a distance — he builds the systems, trains the teams, and stays until the market responds. Two years later, the frameworks are still running.
               </p>
               <footer>
-                <Mono style={{ color: T.inkFaint }}>Regional Commercial Director / GCC Pharma</Mono>
+                <Mono style={{ color: T.inkFaint }}>Regional Commercial Director — GCC Pharma</Mono>
               </footer>
             </blockquote>
           </Reveal>
@@ -799,13 +934,13 @@ export default function MarketPreferencePage() {
                   Is the market<br />choosing you?
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 32 }}>
-                  Book a 30-minute strategy diagnostic. No pitch. No pressure. We will identify where your growth is being blocked, where preference is breaking down, and whether I am the right partner to help you fix it.
+                  A 30-minute strategy conversation. No pitch. No pressure. We'll diagnose where preference is breaking down and whether this engagement makes sense for both of us.
                 </p>
                 <ol style={{ listStyle: "none" }}>
                   {[
-                    "Map the gaps between your strategy, brand, customer experience, and commercial execution",
-                    "Identify the highest-impact growth lever to address first",
-                    "Decide whether there is a strong fit for a focused advisory engagement",
+                    "Map your commercial preference gaps",
+                    "Identify which force to address first",
+                    "Determine if there's a genuine fit",
                   ].map((item, i) => (
                     <li key={i} style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 14 }}>
                       <Mono style={{ color: T.inkFaint }}>0{i + 1}</Mono>
@@ -948,7 +1083,7 @@ export default function MarketPreferencePage() {
               Henry Rosas
             </div>
             <p style={{ fontSize: 13, color: T.inkMuted, lineHeight: 1.7 }}>
-              Market Preference Engineering for Healthcare, Pharma, Personal Care, FMCG, and B2B technology.
+              Market Preference Engineering for pharma, FMCG, and B2B technology.
             </p>
           </div>
           <div>
