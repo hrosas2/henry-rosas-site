@@ -1176,7 +1176,7 @@ export default function MarketPreferencePage() {
               Henry Rosas
             </div>
             <p style={{ fontSize: 13, color: T.inkMuted, lineHeight: 1.7 }}>
-              Market Preference Engineering for Healthcare, Consumer Goods, DIV, and B2B technology.
+              Market Preference Engineering for Healthcare, Consumer Goods, Biometrics, and B2B technology.
             </p>
           </div>
           <div>

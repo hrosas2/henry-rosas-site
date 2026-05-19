@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         {/* ─── Primary Meta ─────────────────────────────────── */}
         <meta charSet="utf-8" />
-        <meta name="description" content="Henry Rosas — Market Preference Engineering for Healthcare, Consumer Goods, DIV, and B2B technology. Fractional CMO and commercial strategy partner across GCC, MEA, and LATAM." />
+        <meta name="description" content="Henry Rosas — Market Preference Engineering for Healthcare, Consumer Goods, Biometrics, and B2B technology. Fractional CMO and commercial strategy partner across GCC, MEA, and LATAM." />
         <meta name="keywords" content="market preference, fractional CMO, commercial strategy, brand strategy, pharma marketing, GCC, MEA, LATAM, Henry Rosas" />
         <meta name="author" content="Henry Rosas" />
         <meta name="robots" content="index, follow" />
