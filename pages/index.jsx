@@ -767,10 +767,10 @@ export default function MarketPreferencePage() {
                   fontWeight: 400, lineHeight: 1.25,
                   color: T.ink, marginBottom: 28,
                 }}>
-                  I embed as your commercial strategy partner — not your vendor.
+                  I work inside your business to turn strategy into commercial growth.
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 16 }}>
-                  30 years across Johnson & Johnson, Unilever, Mundipharma, and Strategy Tools. 15+ markets across GCC, MEA, and LATAM. The work is always the same: make the market choose you.
+                  Fractional CMO, commercial strategy advisor, and growth partner with 30 years across J&J, Unilever, Mundipharma, Strategy Tools, and FacePhi. I help leadership teams sharpen positioning, build go-to-market systems, activate teams, and make the market choose them.
                 </p>
                 {/* Portrait slot — drop a photo at /public/henry-portrait.png (or .jpg) to populate */}
                 <div className="portrait-wrap" style={{ marginTop: 28, maxWidth: 360 }}>
