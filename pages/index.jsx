@@ -787,20 +787,26 @@ export default function MarketPreferencePage() {
             <Reveal delay={0.12}>
               <ul style={{ listStyle: "none" }}>
                 {[
-                  { label: "Fractional CMO", desc: "Embedded senior leadership. 2–3 days per week. I own outcomes, not reports." },
-                  { label: "Commercial Strategy", desc: "Positioning, GTM architecture, and market-entry frameworks built for regional complexity." },
-                  { label: "Brand as Commercial Asset", desc: "Strategy that connects brand to revenue — not brand to aesthetics." },
-                  { label: "Capability Building", desc: "KAM training, commercial playbooks, and team development that transfers knowledge permanently." },
-                  { label: "Omnichannel & Digital", desc: "HCP engagement, content ecosystems, and digital transformation for regulated industries." },
+                  { n: "01", label: "Embedded Commercial Leadership", desc: "Fractional CMO support for companies that need senior leadership 2–3 days per week — with ownership of outcomes, priorities, and execution rhythm." },
+                  { n: "02", label: "Growth & Market Strategy", desc: "Positioning, market-entry strategy, GTM architecture, and commercial roadmaps built for complex regional markets." },
+                  { n: "03", label: "Brand as Revenue Asset", desc: "Brand strategy that connects positioning, differentiation, trust, and customer preference to measurable commercial growth." },
+                  { n: "04", label: "Sales & Capability Building", desc: "KAM training, commercial playbooks, sales tools, and team development systems that transfer knowledge permanently." },
+                  { n: "05", label: "Omnichannel & Digital Acceleration", desc: "Content ecosystems, HCP/customer engagement, CRM journeys, and digital transformation for regulated and complex industries." },
                 ].map((s, i) => (
                   <li key={i} style={{
                     padding: "22px 0",
                     borderBottom: `1px solid ${T.line}`,
                   }}>
                     <div style={{
-                      fontFamily: F.sans, fontSize: 14, fontWeight: 600,
-                      color: T.ink, marginBottom: 5, letterSpacing: "0.01em",
-                    }}>{s.label}</div>
+                      display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6, flexWrap: "wrap",
+                    }}>
+                      <Mono style={{ color: T.inkFaint }}>{s.n}</Mono>
+                      <Mono style={{ color: T.inkFaint }}>/</Mono>
+                      <span style={{
+                        fontFamily: F.sans, fontSize: 14, fontWeight: 600,
+                        color: T.ink, letterSpacing: "0.01em",
+                      }}>{s.label}</span>
+                    </div>
                     <p style={{ fontSize: 14, lineHeight: 1.7, color: T.inkMuted }}>{s.desc}</p>
                   </li>
                 ))}
