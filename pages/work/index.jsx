@@ -174,7 +174,7 @@ export default function WorkIndexPage() {
             padding: "15px 36px", textDecoration: "none",
             display: "inline-flex", alignItems: "center", gap: 10,
           }}>
-            Book a Strategy Conversation <span style={{ fontSize: 14 }} aria-hidden="true">→</span>
+            Book a Strategy Diagnostic <span style={{ fontSize: 14 }} aria-hidden="true">→</span>
           </Link>
         </div>
       </section>

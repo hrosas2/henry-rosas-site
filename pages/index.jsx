@@ -226,7 +226,7 @@ export default function MarketPreferencePage() {
           email: form.email,
           company: form.company,
           challenge: form.challenge,
-          _subject: `New strategy conversation request — ${form.name} (${form.company})`,
+          _subject: `New strategy diagnostic request — ${form.name} (${form.company})`,
         }),
       });
       if (!res.ok) throw new Error(`Submission failed (${res.status})`);
@@ -396,7 +396,7 @@ export default function MarketPreferencePage() {
             opacity: mobileMenuOpen ? 1 : 0,
             transition: `all 0.4s cubic-bezier(0.16,1,0.3,1) ${0.1 + navItems.length * 0.05}s`,
           }}
-        >Book a Strategy Conversation →</a>
+        >Book a Strategy Diagnostic →</a>
       </div>
 
       {/* ═══════════════════════════════════════════════════════ */}
@@ -544,7 +544,7 @@ export default function MarketPreferencePage() {
               onMouseEnter={e => { e.currentTarget.style.background = T.ink; e.currentTarget.style.color = T.neon; }}
               onMouseLeave={e => { e.currentTarget.style.background = T.neon; e.currentTarget.style.color = T.ink; }}
             >
-              Book a Strategy Conversation <span style={{ fontSize: 14 }} aria-hidden="true">→</span>
+              Book a Strategy Diagnostic <span style={{ fontSize: 14 }} aria-hidden="true">→</span>
             </a>
             <a href="#thesis" style={{
               fontFamily: F.mono, fontSize: 11, fontWeight: 400,
@@ -1027,13 +1027,13 @@ export default function MarketPreferencePage() {
                   Is the market<br />choosing you?
                 </h2>
                 <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 32 }}>
-                  A 30-minute strategy conversation. No pitch. No pressure. We'll diagnose where preference is breaking down and whether this engagement makes sense for both of us.
+                  Book a 30-minute strategy diagnostic. No pitch. No pressure. We will identify where your growth is being blocked, where preference is breaking down, and whether I am the right partner to help you fix it.
                 </p>
                 <ol style={{ listStyle: "none" }}>
                   {[
-                    "Map your commercial preference gaps",
-                    "Identify which force to address first",
-                    "Determine if there's a genuine fit",
+                    "Map the gaps between your strategy, brand, customer experience, and commercial execution",
+                    "Identify the highest-impact growth lever to address first",
+                    "Decide whether there is a strong fit for a focused advisory engagement",
                   ].map((item, i) => (
                     <li key={i} style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 14 }}>
                       <Mono style={{ color: T.inkFaint }}>0{i + 1}</Mono>
@@ -1148,7 +1148,7 @@ export default function MarketPreferencePage() {
                       onMouseEnter={e => { if (!submitting) { e.currentTarget.style.background = T.neon; e.currentTarget.style.color = T.ink; } }}
                       onMouseLeave={e => { if (!submitting) { e.currentTarget.style.background = T.ink; e.currentTarget.style.color = T.bg; } }}
                     >
-                      {submitting ? "Sending…" : "Request Strategy Conversation →"}
+                      {submitting ? "Sending…" : "Book a Strategy Diagnostic →"}
                     </button>
                   </div>
                 </form>
