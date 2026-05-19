@@ -953,7 +953,7 @@ export default function MarketPreferencePage() {
         }}>
           {[
             { n: "30+", l: "Years" },
-            { n: "15+", l: "Markets" },
+            { n: "50+", l: "Markets" },
             { n: "4", l: "Global MNCs" },
             { n: "50+", l: "Brand Launches" },
           ].map((s, i) => (
