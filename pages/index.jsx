@@ -769,9 +769,22 @@ export default function MarketPreferencePage() {
                 }}>
                   I work inside your business to turn strategy into commercial growth.
                 </h2>
-                <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 36 }}>
-                  Fractional CMO, commercial strategy advisor, and growth partner with 30 years across J&J, Unilever, Mundipharma, Strategy Tools, and FacePhi. I help leadership teams sharpen positioning, build go-to-market systems, activate teams, and make the market choose them.
+                <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 32 }}>
+                  My name is Henry Rosas, a fractional CMO, commercial strategy advisor, and growth partner with 30 years across J&J, Unilever, Mundipharma, Strategy Tools, and FacePhi. I help leadership teams sharpen positioning, build go-to-market systems, activate teams, and make the market choose them.
                 </p>
+                <a href="#connect" onClick={() => track("engagements_cta")} style={{
+                  fontFamily: F.mono, fontSize: 11, fontWeight: 500,
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: T.ink, background: T.neon,
+                  padding: "15px 36px", textDecoration: "none",
+                  display: "inline-flex", alignItems: "center", gap: 10,
+                  transition: "all 0.3s",
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.background = T.ink; e.currentTarget.style.color = T.neon; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = T.neon; e.currentTarget.style.color = T.ink; }}
+                >
+                  Contact me <span style={{ fontSize: 14 }} aria-hidden="true">→</span>
+                </a>
               </div>
             </Reveal>
 
