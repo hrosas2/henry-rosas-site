@@ -985,7 +985,7 @@ export default function MarketPreferencePage() {
                 fontSize: 22, fontWeight: 400, fontStyle: "italic",
                 lineHeight: 1.6, color: T.ink, marginBottom: 24,
               }}>
-                Henry doesn't advise from a distance — he builds the systems, trains the teams, and stays until the market responds. Two years later, the frameworks are still running.
+                Henry doesn't advise from a distance, he builds the systems, trains the teams, and stays until the market responds. Two years later, the frameworks are still running.
               </p>
               <footer>
                 <Mono style={{ color: T.inkFaint }}>Regional Commercial Director — GCC Pharma</Mono>
