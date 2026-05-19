@@ -524,7 +524,7 @@ export default function MarketPreferencePage() {
             opacity: ready ? 1 : 0,
             transition: "opacity 0.8s ease 0.9s",
           }}>
-            We help businesses align strategy, brand, experience, and commercial execution — so the market chooses them first.
+            We help businesses align strategy, brand, experience, and commercial execution, so the market chooses them first.
           </p>
 
           {/* CTAs */}
