@@ -171,8 +171,13 @@ function CustomCursor() {
   return <div ref={dotRef} className="cursor-dot hidden" aria-hidden="true" />;
 }
 
+// Tracks events to whichever analytics tools are present.
+// Currently active: Google Analytics 4 (configured in pages/_app.jsx).
+// PostHog support left in for future use — fires only if window.posthog exists.
 function track(name, props = {}) {
-  if (typeof window !== "undefined" && window.posthog) window.posthog.capture(name, props);
+  if (typeof window === "undefined") return;
+  if (typeof window.gtag === "function") window.gtag("event", name, props);
+  if (window.posthog) window.posthog.capture(name, props);
 }
 
 // ─── VALIDATION ───────────────────────────────────────────────
@@ -215,7 +220,9 @@ export default function MarketPreferencePage() {
 
     setSubmitting(true);
     setSubmitError(null);
-    track("strategy_call_requested", { company: form.company });
+    // GA4 conversion event — mark this as a "generate_lead" recommended event
+    // so it shows in the GA4 conversions report without extra config.
+    track("generate_lead", { method: "strategy_diagnostic_form", company: form.company });
 
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
