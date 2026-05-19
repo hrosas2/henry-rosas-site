@@ -252,11 +252,11 @@ export default function MarketPreferencePage() {
   ];
 
   const pillars = [
-    { id: "rel", n: "01", title: "Relevance", q: "Why do businesses become invisible?", body: "Markets don't punish bad companies. They ignore irrelevant ones. Relevance is the prerequisite for every other commercial metric — and it decays faster than most leaders realize." },
-    { id: "tru", n: "02", title: "Trust", q: "Why do customers hesitate to buy?", body: "Price is rarely the real barrier. Trust is. It's built through consistency between what you promise, what you deliver, and what others say when you're not in the room." },
-    { id: "exp", n: "03", title: "Commercial Experience", q: "Why does CX impact revenue more than campaigns?", body: "Every interaction is a commercial event. The pharmacy counter. The onboarding call. The invoice design. Companies that treat experience as a revenue driver outperform those that treat it as a department." },
-    { id: "cla", n: "04", title: "Strategic Clarity", q: "Why do confused brands lose market share?", body: "When a company can't articulate why it exists in one sentence, the market can't either. Clarity is not simplification — it's the discipline of knowing what you are and what you're not." },
-    { id: "pre", n: "05", title: "Market Preference", q: "Why do customers choose competitors with inferior products?", body: "Because being chosen is not a function of being better. It's a function of being understood, trusted, and top-of-mind at the moment of decision. That's engineerable." },
+    { id: "rel", n: "01", title: "Relevance", q: "Do customers immediately understand why you matter?", body: "Markets ignore brands that speak from the inside out. Relevance is created when your offer connects directly to a visible customer problem, market tension, or growth opportunity." },
+    { id: "tru", n: "02", title: "Trust", q: "Does the market believe you can deliver?", body: "Trust reduces perceived risk. It is built through proof, credibility, consistency, leadership visibility, customer evidence, and a clear reason to believe." },
+    { id: "exp", n: "03", title: "Commercial Experience", q: "Is every interaction making it easier to choose you?", body: "Commercial experience turns interest into conversion. Every touchpoint — sales, service, content, onboarding, channel, and follow-up — either increases confidence or creates friction." },
+    { id: "cla", n: "04", title: "Strategic Clarity", q: "Is your strategy simple enough for the market and your team to act on?", body: "Confused brands lose momentum. Strategic clarity aligns positioning, audience, offer, message, channel, and execution so the business moves in one direction." },
+    { id: "pre", n: "05", title: "Market Preference", q: "Are you the easiest, safest, and most valuable choice?", body: "Markets do not always choose the best product. They choose the brand that feels most relevant, credible, accessible, differentiated, and commercially compelling." },
   ];
 
   const formFields = [
