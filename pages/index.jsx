@@ -769,18 +769,9 @@ export default function MarketPreferencePage() {
                 }}>
                   I work inside your business to turn strategy into commercial growth.
                 </h2>
-                <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 16 }}>
+                <p style={{ fontSize: 15, lineHeight: 1.85, color: T.inkMuted, marginBottom: 36 }}>
                   Fractional CMO, commercial strategy advisor, and growth partner with 30 years across J&J, Unilever, Mundipharma, Strategy Tools, and FacePhi. I help leadership teams sharpen positioning, build go-to-market systems, activate teams, and make the market choose them.
                 </p>
-                {/* Portrait slot — drop a photo at /public/henry-portrait.png (or .jpg) to populate */}
-                <div className="portrait-wrap" style={{ marginTop: 28, maxWidth: 360 }}>
-                  <img
-                    src="/henry-portrait.png"
-                    alt="Henry Rosas, Market Preference Engineering"
-                    onError={(e) => { e.currentTarget.style.display = "none"; }}
-                  />
-                  <div className="portrait-placeholder"></div>
-                </div>
               </div>
             </Reveal>
 
