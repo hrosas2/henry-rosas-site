@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { getPublishedCaseStudies } from "../data/case-studies";
 import { getPublishedArticles } from "../data/insights";
+import PrismSection from "../components/PrismSection";
 
 /*
  * ═══════════════════════════════════════════════════════════════
@@ -254,6 +255,8 @@ export default function MarketPreferencePage() {
   // Nav items — supports both same-page anchors (href: "#…") and routes (href: "/…")
   const navItems = [
     { label: "Thesis", href: "#thesis" },
+    { label: "Services", href: "/services" },
+    { label: "AI Commercial", href: "/ai-commercial" },
     { label: "Engagements", href: "#work" },
     { label: "Case Studies", href: "/work" },
     { label: "Insights", href: "/insights" },
@@ -745,6 +748,11 @@ export default function MarketPreferencePage() {
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* THE PRISM METHOD (between Five Forces and The Work)      */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <PrismSection />
 
       {/* ═══════════════════════════════════════════════════════ */}
       {/* THE WORK                                                 */}

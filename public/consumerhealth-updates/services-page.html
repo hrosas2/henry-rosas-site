@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Henry Rosas — Commercial strategy engagements across pharma, FMCG, and B2B technology in the GCC, MEA, and LATAM. Fractional CMO, GTM strategy, brand, and capability building." />
+<title>Services — Henry Rosas | Market Preference Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:    #E0E0D0;
+  --cream-dk: #D4D4C2;
+  --ink:      #1A1A14;
+  --ink-mid:  #2E2E24;
+  --ink-lt:   #4A4A3C;
+  --gold:     #B8975A;
+  --gold-lt:  #D4B07A;
+  --mist:     #F2F2EA;
+  --rule:     rgba(26,26,20,0.10);
+  --rule-inv: rgba(224,224,208,0.12);
+  --font-d:   'Cormorant Garamond', Georgia, serif;
+  --font-b:   'DM Sans', system-ui, sans-serif;
+}
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--ink); font-family: var(--font-b); overflow-x: hidden; }
+
+/* ── GRAIN MIXIN ── */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(224,224,208,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  transition: padding 0.4s ease;
+}
+
+nav.scrolled { padding: 16px 48px; }
+
+.nav-brand {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: var(--font-b);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-lt);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+.nav-cta {
+  padding: 10px 22px !important;
+  border: 1px solid var(--ink) !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.08em !important;
+  transition: background 0.3s ease, color 0.3s ease !important;
+  text-transform: uppercase !important;
+}
+.nav-cta:hover { background: var(--ink) !important; color: var(--cream) !important; }
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── PAGE HERO ── */
+.hero {
+  position: relative;
+  padding: 180px 0 120px;
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards 0.1s;
+}
+
+.hero-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+
+.hero-eyebrow span {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.2s;
+}
+
+.hero-title em { font-style: italic; color: var(--gold-lt); }
+
+.hero-right {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.4s;
+  padding-bottom: 8px;
+}
+
+.hero-sub {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(224,224,208,0.65);
+  margin-bottom: 40px;
+}
+
+.hero-industries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.industry-chip {
+  padding: 7px 16px;
+  border: 1px solid rgba(184,151,90,0.35);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(184,151,90,0.8);
+}
+
+/* Diagonal rule at bottom of hero */
+.hero-bottom-rule {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 64px;
+}
+.section-label-line { width: 36px; height: 1px; background: var(--gold); }
+.section-label-text {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ── SERVICES ── */
+.services-section {
+  padding: 120px 0;
+  background: var(--cream);
+}
+
+.services-intro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+  margin-bottom: 100px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.services-intro-title {
+  font-family: var(--font-d);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.services-intro-right p {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.78;
+  color: var(--ink-lt);
+  max-width: 580px;
+}
+
+/* ── SERVICE CARDS ── */
+.service-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 48px;
+  padding: 64px 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  left: -48px; right: -48px; top: 0; bottom: 0;
+  background: var(--mist);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+.service-card:hover::before { opacity: 1; }
+.service-card > * { position: relative; z-index: 1; }
+
+.service-num {
+  font-family: var(--font-d);
+  font-size: 56px;
+  font-weight: 300;
+  color: rgba(26,26,20,0.12);
+  line-height: 1;
+  padding-top: 6px;
+  transition: color 0.3s ease;
+}
+.service-card:hover .service-num { color: var(--gold); opacity: 0.5; }
+
+.service-body { display: flex; flex-direction: column; gap: 28px; }
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.service-name {
+  font-family: var(--font-d);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.service-tag {
+  padding: 5px 12px;
+  border: 1px solid var(--rule);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-lt);
+  white-space: nowrap;
+}
+
+.service-hook {
+  font-family: var(--font-d);
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1.5;
+  max-width: 640px;
+}
+
+.service-desc {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ink-lt);
+  max-width: 640px;
+}
+
+.service-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 32px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.detail-block label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26,26,20,0.35);
+  margin-bottom: 10px;
+}
+
+.detail-block p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink-mid);
+}
+
+.service-deliverables {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service-deliverables-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26,26,20,0.35);
+  margin-bottom: 6px;
+}
+
+.deliverable {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.5;
+}
+
+.deliverable::before {
+  content: '→';
+  color: var(--gold);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.service-investment {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.investment-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26,26,20,0.35);
+}
+
+.investment-signal {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.investment-note {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(26,26,20,0.45);
+}
+
+/* ── DARK HOW-IT-WORKS ── */
+.how-section {
+  position: relative;
+  background: var(--ink);
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.how-section .section-label-text { color: var(--gold); }
+.how-section .section-label-line { background: var(--gold); }
+
+.how-title {
+  font-family: var(--font-d);
+  font-size: clamp(38px, 4.5vw, 58px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-bottom: 80px;
+  max-width: 640px;
+}
+
+.how-title em { font-style: italic; color: var(--gold-lt); }
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: 80px;
+}
+
+.how-step {
+  padding: 48px 40px 48px 0;
+  border-right: 1px solid var(--rule-inv);
+  position: relative;
+}
+
+.how-step:last-child { border-right: none; padding-right: 0; padding-left: 40px; }
+.how-step:nth-child(2) { padding-left: 40px; padding-right: 40px; }
+
+.how-step-num {
+  font-family: var(--font-d);
+  font-size: 64px;
+  font-weight: 300;
+  color: rgba(224,224,208,0.08);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.how-step-title {
+  font-family: var(--font-d);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.how-step-sub {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.how-step-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(224,224,208,0.55);
+}
+
+.how-timing {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule-inv);
+  border: 1px solid var(--rule-inv);
+  margin-top: 24px;
+}
+
+.timing-cell {
+  background: var(--ink);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.timing-duration {
+  font-family: var(--font-d);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--gold-lt);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.timing-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(224,224,208,0.4);
+  display: block;
+}
+
+/* ── QUALIFYING ── */
+.qualify-section {
+  padding: 120px 0;
+  background: var(--mist);
+}
+
+.qualify-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.qualify-title {
+  font-family: var(--font-d);
+  font-size: clamp(34px, 4vw, 50px);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+.qualify-title em { font-style: italic; color: var(--gold); }
+
+.qualify-desc {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ink-lt);
+  margin-bottom: 40px;
+}
+
+.qualify-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease, gap 0.3s ease;
+}
+.qualify-cta:hover { background: var(--gold); gap: 18px; }
+.qualify-cta .arr { font-size: 16px; transition: transform 0.3s ease; }
+.qualify-cta:hover .arr { transform: translateX(4px); }
+
+.qualify-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.qualify-q {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  transform: translateX(16px);
+}
+
+.qualify-q:first-child { border-top: 1px solid var(--rule); }
+
+.q-check {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.q-check::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.qualify-q p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--ink-mid);
+}
+
+/* ── BOTTOM CTA ── */
+.cta-section {
+  position: relative;
+  background: var(--cream);
+  padding: 120px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.cta-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.cta-headline {
+  font-family: var(--font-d);
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.cta-headline em { font-style: italic; color: var(--gold); }
+
+.cta-right p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.78;
+  color: var(--ink-lt);
+  margin-bottom: 36px;
+}
+
+.cta-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.cta-step {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.cta-step-num {
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  min-width: 20px;
+}
+
+.cta-step p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ink-lt);
+  margin: 0;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 36px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease, gap 0.3s ease;
+}
+.cta-btn:hover { background: var(--gold); gap: 18px; }
+.cta-btn .arr { font-size: 18px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+footer .brand {
+  font-family: var(--font-d);
+  font-size: 18px;
+  color: var(--cream);
+  font-weight: 400;
+}
+
+footer .copy {
+  font-size: 11px;
+  color: rgba(224,224,208,0.3);
+  letter-spacing: 0.06em;
+}
+
+footer .footer-links {
+  display: flex;
+  gap: 32px;
+}
+
+footer .footer-links a {
+  font-size: 11px;
+  color: rgba(224,224,208,0.4);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.25s;
+}
+
+footer .footer-links a:hover { color: var(--gold); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-x {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-x.visible { opacity: 1; transform: translateX(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-grid,
+  .services-intro,
+  .how-steps,
+  .qualify-grid,
+  .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+  .how-step:last-child, .how-step:nth-child(2) { padding-left: 0; padding-right: 0; }
+  .how-step { border-right: none; border-bottom: 1px solid var(--rule-inv); padding: 40px 0; }
+  .service-details { grid-template-columns: 1fr 1fr; }
+  .how-timing { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .container { padding: 0 24px; }
+  .service-card { grid-template-columns: 1fr; gap: 24px; }
+  .service-num { font-size: 32px; }
+  .service-details { grid-template-columns: 1fr; gap: 20px; }
+  .how-timing { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  footer { flex-direction: column; text-align: center; padding: 36px 24px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="https://www.consumerhealth.me" class="nav-brand">Henry Rosas</a>
+  <ul class="nav-links">
+    <li><a href="https://www.consumerhealth.me/#thesis">Thesis</a></li>
+    <li><a href="/services" class="active">Services</a></li>
+    <li><a href="https://www.consumerhealth.me/work">Case Studies</a></li>
+    <li><a href="https://www.consumerhealth.me/#connect" class="nav-cta">Let's Talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero grain" style="position:relative;">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span>How I Work</span>
+        </div>
+        <h1 class="hero-title">
+          Five ways to<br/>
+          make the market<br/>
+          <em>choose you.</em>
+        </h1>
+      </div>
+      <div class="hero-right">
+        <p class="hero-sub">
+          Every engagement is different. The commercial challenge, the market, 
+          the team maturity, the growth lever — all different. But the underlying 
+          objective is always the same: to engineer the conditions under which 
+          a market consistently prefers one business over another.
+        </p>
+        <div class="hero-industries">
+          <span class="industry-chip">Pharmaceuticals</span>
+          <span class="industry-chip">Consumer Health</span>
+          <span class="industry-chip">B2B Technology</span>
+          <span class="industry-chip">FMCG</span>
+          <span class="industry-chip">Health-Tech</span>
+          <span class="industry-chip">GCC · MEA · LATAM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom-rule"></div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="container">
+
+    <div class="section-label reveal">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Engagement Types</span>
+    </div>
+
+    <div class="services-intro reveal">
+      <h2 class="services-intro-title">
+        Five engagements.<br/>One objective.
+      </h2>
+      <div class="services-intro-right">
+        <p>
+          I work inside your business — not from a distance. Each engagement type is 
+          designed around a specific commercial challenge. Some clients engage across 
+          multiple workstreams simultaneously. Most begin with a single, focused 
+          intervention and expand as the commercial system matures. All engagements 
+          are built on The PRISM Method™ — and all end with a system that runs 
+          without me.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 01 ── -->
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-body">
+        <div class="service-header">
+          <h3 class="service-name">Embedded Commercial Leadership</h3>
+          <div class="service-tags">
+            <span class="service-tag">Fractional CMO</span>
+            <span class="service-tag">Exec Partnership</span>
+            <span class="service-tag">2–3 Days / Week</span>
+          </div>
+        </div>
+
+        <p class="service-hook">
+          "For companies that need a senior commercial mind inside the room — not a report dropped in the inbox."
+        </p>
+
+        <p class="service-desc">
+          Most companies at the growth inflection point face the same problem: they are too complex 
+          for a junior marketing lead, but not yet ready to hire a full-time CMO. I step into that 
+          gap — with ownership of outcomes, not just advice. I chair commercial reviews, align 
+          leadership on priorities, lead agency and team briefings, and drive the GTM execution 
+          rhythm week by week. The model is designed to transfer into a permanent hire when the 
+          time is right.
+        </p>
+
+        <div class="service-details">
+          <div class="detail-block">
+            <label>Best For</label>
+            <p>Series A–C scale-ups, regional subsidiaries without a CMO, companies entering new markets</p>
+          </div>
+          <div class="detail-block">
+            <label>Typical Duration</label>
+            <p>6–18 months. Structured around quarterly milestones with rolling renewal.</p>
+          </div>
+          <div class="detail-block">
+            <label>Investment Signal</label>
+            <p>Day-rate or monthly retainer structure. Engagements begin at <strong>$8,000 / month</strong>.</p>
+          </div>
+        </div>
+
+        <div class="service-deliverables">
+          <span class="service-deliverables-title">What's included</span>
+          <div class="deliverable">Commercial strategy ownership and quarterly roadmap</div>
+          <div class="deliverable">Agency, vendor, and team management</div>
+          <div class="deliverable">Monthly commercial performance reviews with leadership</div>
+          <div class="deliverable">GTM execution support across launch, expansion, or repositioning</div>
+          <div class="deliverable">Transition plan and internal capability handoff</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 02 ── -->
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <div class="service-body">
+        <div class="service-header">
+          <h3 class="service-name">Growth &amp; Market Strategy</h3>
+          <div class="service-tags">
+            <span class="service-tag">GTM Architecture</span>
+            <span class="service-tag">Market Entry</span>
+            <span class="service-tag">Positioning</span>
+          </div>
+        </div>
+
+        <p class="service-hook">
+          "For leadership teams who know where they want to go — but need the architecture to get there without losing margin on the way."
+        </p>
+
+        <p class="service-desc">
+          Growth strategy in complex regional markets is rarely about the idea — 
+          it is about the commercial architecture. Who is the right customer? 
+          Through which channel? With what pricing logic? Against which competitive frame? 
+          I build go-to-market systems that are coherent across positioning, audience, 
+          offer, distribution, and execution — tailored for the regulatory, cultural, 
+          and commercial dynamics of GCC, MEA, and LATAM markets.
+        </p>
+
+        <div class="service-details">
+          <div class="detail-block">
+            <label>Best For</label>
+            <p>Market entry, portfolio repositioning, new product launches, competitive response strategies</p>
+          </div>
+          <div class="detail-block">
+            <label>Typical Duration</label>
+            <p>8–16 weeks for strategy build. Optional execution support phase follows.</p>
+          </div>
+          <div class="detail-block">
+            <label>Investment Signal</label>
+            <p>Project-based fee. Engagements begin at <strong>$18,000</strong> for full GTM architecture.</p>
+          </div>
+        </div>
+
+        <div class="service-deliverables">
+          <span class="service-deliverables-title">What's included</span>
+          <div class="deliverable">Preference Diagnostic across target customer segments</div>
+          <div class="deliverable">Market-entry or repositioning strategy document</div>
+          <div class="deliverable">ICP definition and channel prioritisation framework</div>
+          <div class="deliverable">Competitive positioning map and differentiation architecture</div>
+          <div class="deliverable">Commercial roadmap with 90-day activation plan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 03 ── -->
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <div class="service-body">
+        <div class="service-header">
+          <h3 class="service-name">Brand as Revenue Asset</h3>
+          <div class="service-tags">
+            <span class="service-tag">Brand Strategy</span>
+            <span class="service-tag">Differentiation</span>
+            <span class="service-tag">Preference Engineering</span>
+          </div>
+        </div>
+
+        <p class="service-hook">
+          "For companies whose brand is invisible, generic, or failing to convert trust into revenue."
+        </p>
+
+        <p class="service-desc">
+          Brand strategy that does not connect to commercial growth is decoration. 
+          I build brand frameworks that link positioning, differentiation, and customer 
+          preference directly to conversion metrics — prescription velocity, deal win rate, 
+          repeat purchase, referral rate. For pharma, this means HCP emotional preference 
+          at the moment of prescription. For B2B, it means reducing sales cycle length 
+          through trust architecture. Brand is not a logo exercise — it is a commercial system.
+        </p>
+
+        <div class="service-details">
+          <div class="detail-block">
+            <label>Best For</label>
+            <p>Rebrand, portfolio rationalisation, pre-Series B narrative sharpening, legacy brand refresh</p>
+          </div>
+          <div class="detail-block">
+            <label>Typical Duration</label>
+            <p>10–14 weeks. Includes diagnostic, framework build, and activation brief.</p>
+          </div>
+          <div class="detail-block">
+            <label>Investment Signal</label>
+            <p>Project-based fee. Engagements begin at <strong>$14,000</strong> for full brand strategy build.</p>
+          </div>
+        </div>
+
+        <div class="service-deliverables">
+          <span class="service-deliverables-title">What's included</span>
+          <div class="deliverable">HCP / buyer / customer preference diagnostic</div>
+          <div class="deliverable">Brand positioning framework and differentiation architecture</div>
+          <div class="deliverable">Messaging hierarchy and reason-to-believe structure</div>
+          <div class="deliverable">Brand-to-revenue connection model (KPIs per touchpoint)</div>
+          <div class="deliverable">Creative and agency activation brief</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 04 ── -->
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <div class="service-body">
+        <div class="service-header">
+          <h3 class="service-name">Sales &amp; Capability Building</h3>
+          <div class="service-tags">
+            <span class="service-tag">KAM Excellence</span>
+            <span class="service-tag">Commercial Playbooks</span>
+            <span class="service-tag">Team Training</span>
+          </div>
+        </div>
+
+        <p class="service-hook">
+          "For commercial teams that execute hard but sell the wrong things, to the wrong people, in the wrong order."
+        </p>
+
+        <p class="service-desc">
+          Capability building is the most durable form of commercial investment. 
+          I design and deliver KAM training programmes, commercial playbooks, and 
+          sales tools that transfer knowledge permanently — not through classroom theory, 
+          but through live commercial situations. The test of whether this worked 
+          is whether the frameworks are still running two years after I leave. 
+          In multiple engagements, they are.
+        </p>
+
+        <div class="service-details">
+          <div class="detail-block">
+            <label>Best For</label>
+            <p>Regional sales teams, KAM uplift, pre-launch commercial readiness, new market team build</p>
+          </div>
+          <div class="detail-block">
+            <label>Typical Duration</label>
+            <p>4–12 weeks. Modular delivery with embedded coaching between sessions.</p>
+          </div>
+          <div class="detail-block">
+            <label>Investment Signal</label>
+            <p>Programme-based fee. Engagements begin at <strong>$10,000</strong> for a core team programme.</p>
+          </div>
+        </div>
+
+        <div class="service-deliverables">
+          <span class="service-deliverables-title">What's included</span>
+          <div class="deliverable">Commercial capability audit and gap analysis</div>
+          <div class="deliverable">KAM playbook — segmentation, targeting, engagement cycles</div>
+          <div class="deliverable">Sales tools: call guides, objection frameworks, value messaging</div>
+          <div class="deliverable">Workshop delivery (in-person or virtual) across the team</div>
+          <div class="deliverable">90-day adoption tracking and post-programme coaching</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SERVICE 05 ── -->
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <div class="service-body">
+        <div class="service-header">
+          <h3 class="service-name">Omnichannel &amp; Digital Acceleration</h3>
+          <div class="service-tags">
+            <span class="service-tag">HCP Engagement</span>
+            <span class="service-tag">CRM &amp; Journeys</span>
+            <span class="service-tag">Content Strategy</span>
+          </div>
+        </div>
+
+        <p class="service-hook">
+          "For regulated businesses that are digitally active but commercially disconnected — content without conversion, channels without journeys."
+        </p>
+
+        <p class="service-desc">
+          Digital transformation in pharma, consumer health, and B2B tech fails for the same 
+          reason every time: channels are activated before the commercial logic is clear. 
+          I build omnichannel strategies that start from the customer decision journey — 
+          and work backwards into content, CRM, HCP engagement, and digital touchpoints. 
+          The result is a content ecosystem where every asset serves a commercial purpose, 
+          and every journey moves the customer closer to preference.
+        </p>
+
+        <div class="service-details">
+          <div class="detail-block">
+            <label>Best For</label>
+            <p>Pharma digital transformation, health-tech go-to-market, DTC consumer health, B2B SaaS pipeline</p>
+          </div>
+          <div class="detail-block">
+            <label>Typical Duration</label>
+            <p>10–20 weeks for strategy and infrastructure build. Ongoing content advisory available.</p>
+          </div>
+          <div class="detail-block">
+            <label>Investment Signal</label>
+            <p>Project or retainer-based. Engagements begin at <strong>$12,000</strong> for full channel architecture.</p>
+          </div>
+        </div>
+
+        <div class="service-deliverables">
+          <span class="service-deliverables-title">What's included</span>
+          <div class="deliverable">Customer decision journey mapping by segment</div>
+          <div class="deliverable">Channel architecture and content ecosystem design</div>
+          <div class="deliverable">CRM journey logic and trigger framework</div>
+          <div class="deliverable">HCP or B2B engagement programme and content calendar</div>
+          <div class="deliverable">Digital KPI framework and performance review cadence</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section grain" style="position:relative;">
+  <div class="container">
+
+    <div class="section-label reveal">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">The Engagement Model</span>
+    </div>
+
+    <h2 class="how-title reveal">
+      Every engagement<br/>
+      starts the same way:<br/>
+      <em>with a conversation.</em>
+    </h2>
+
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <h3 class="how-step-title">Strategy Diagnostic</h3>
+        <span class="how-step-sub">30 minutes · No pitch · No deck</span>
+        <p class="how-step-desc">
+          A focused conversation to map where your commercial preference is breaking down, 
+          identify the highest-leverage growth intervention, and assess whether there is 
+          a strong fit for a working partnership. No frameworks. No templates. 
+          Just a direct commercial conversation.
+        </p>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">02</div>
+        <h3 class="how-step-title">Engagement Proposal</h3>
+        <span class="how-step-sub">5–7 days · Tailored to your situation</span>
+        <p class="how-step-desc">
+          If the diagnostic reveals a clear fit, I produce a focused proposal — 
+          the specific engagement type, scope, timeline, deliverables, and investment. 
+          One page, not a deck. Designed to be reviewed in ten minutes by a leadership team.
+        </p>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">03</div>
+        <h3 class="how-step-title">Execution Begins</h3>
+        <span class="how-step-sub">Week 1 · Inside your business</span>
+        <p class="how-step-desc">
+          Engagements begin quickly — typically within two weeks of agreement. 
+          The first phase is always diagnostic, regardless of engagement type. 
+          You cannot build the right commercial system without understanding 
+          the actual preference breakdown first.
+        </p>
+      </div>
+    </div>
+
+    <div class="how-timing reveal">
+      <div class="timing-cell">
+        <span class="timing-duration">30 min</span>
+        <span class="timing-label">Diagnostic call</span>
+      </div>
+      <div class="timing-cell">
+        <span class="timing-duration">5–7 days</span>
+        <span class="timing-label">Proposal delivered</span>
+      </div>
+      <div class="timing-cell">
+        <span class="timing-duration">2 weeks</span>
+        <span class="timing-label">Engagement start</span>
+      </div>
+      <div class="timing-cell">
+        <span class="timing-duration">Ongoing</span>
+        <span class="timing-label">Iteration until market moves</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUALIFYING SECTION -->
+<section class="qualify-section">
+  <div class="container">
+    <div class="qualify-grid">
+      <div>
+        <h2 class="qualify-title reveal">
+          Is this the right<br/>
+          <em>partnership</em><br/>
+          for you?
+        </h2>
+        <p class="qualify-desc reveal">
+          My engagements are focused, senior, and outcome-oriented. 
+          They are not right for every situation. The questions on the right 
+          are the ones worth asking before we speak. If most of them resonate, 
+          book a diagnostic.
+        </p>
+        <a class="qualify-cta reveal" href="https://www.consumerhealth.me/#connect">
+          Book a Strategy Diagnostic
+          <span class="arr">→</span>
+        </a>
+      </div>
+
+      <div class="qualify-questions">
+        <div class="qualify-q reveal-x">
+          <div class="q-check"></div>
+          <p>You are growing — but slower than you should be, and you are not sure which lever to pull first.</p>
+        </div>
+        <div class="qualify-q reveal-x">
+          <div class="q-check"></div>
+          <p>Your strategy is sound on paper, but execution is fragmented across teams, agencies, or markets.</p>
+        </div>
+        <div class="qualify-q reveal-x">
+          <div class="q-check"></div>
+          <p>You are entering a new market, repositioning a brand, or preparing for a funding round — and the commercial narrative is not ready.</p>
+        </div>
+        <div class="qualify-q reveal-x">
+          <div class="q-check"></div>
+          <p>Your sales team is active but not converting — because they are selling features, not preference.</p>
+        </div>
+        <div class="qualify-q reveal-x">
+          <div class="q-check"></div>
+          <p>You need a senior commercial partner who will stay until the numbers move — not hand off a PowerPoint and disappear.</p>
+        </div>
+        <div class="qualify-q reveal-x">
+          <div class="q-check"></div>
+          <p>You operate in GCC, MEA, or LATAM — complex regulatory and cultural markets where generic frameworks do not translate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner">
+      <div>
+        <h2 class="cta-headline reveal">
+          Is the market<br/>
+          <em>choosing</em><br/>
+          you?
+        </h2>
+      </div>
+      <div class="cta-right">
+        <p class="reveal">
+          Book a 30-minute Strategy Diagnostic. No pitch. No pressure. 
+          We will map where your commercial preference is breaking down, 
+          identify the highest-impact lever, and decide whether there 
+          is a strong fit for a focused advisory engagement.
+        </p>
+        <div class="cta-steps reveal">
+          <div class="cta-step">
+            <span class="cta-step-num">01</span>
+            <p>Map the gaps between your strategy, brand, experience, and commercial execution</p>
+          </div>
+          <div class="cta-step">
+            <span class="cta-step-num">02</span>
+            <p>Identify the highest-impact growth lever to address first</p>
+          </div>
+          <div class="cta-step">
+            <span class="cta-step-num">03</span>
+            <p>Decide whether there is a strong fit for a focused advisory engagement</p>
+          </div>
+        </div>
+        <a class="cta-btn reveal" href="https://www.consumerhealth.me/#connect">
+          Book a Strategy Diagnostic
+          <span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">Henry Rosas</div>
+  <div class="footer-links">
+    <a href="https://www.consumerhealth.me/#thesis">Thesis</a>
+    <a href="/services">Services</a>
+    <a href="https://www.consumerhealth.me/work">Case Studies</a>
+    <a href="https://www.linkedin.com/in/henry-rosas/" target="_blank">LinkedIn</a>
+  </div>
+  <p class="copy">© 2026 Henry Rosas · Market Preference Engineering™</p>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // stagger children if grid
+        const children = entry.target.querySelectorAll('.reveal, .reveal-x');
+        children.forEach((child, i) => {
+          setTimeout(() => child.classList.add('visible'), i * 80);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal, .reveal-x').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

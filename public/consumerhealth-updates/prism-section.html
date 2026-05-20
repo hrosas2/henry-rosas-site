@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The PRISM Method™ — Henry Rosas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:   #E0E0D0;
+    --ink:     #1A1A14;
+    --ink-mid: #2E2E24;
+    --gold:    #B8975A;
+    --gold-lt: #D4B07A;
+    --mist:    #F4F4EE;
+    --rule:    rgba(26,26,20,0.12);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+  }
+
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  /* ─── SECTION SHELL ──────────────────────────────── */
+  .prism-section {
+    position: relative;
+    padding: 140px 0 160px;
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  /* Grain texture overlay */
+  .prism-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ─── SECTION LABEL ──────────────────────────────── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+
+  .section-label-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-label-text {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── HEADER BLOCK ───────────────────────────────── */
+  .prism-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: end;
+    margin-bottom: 100px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .prism-header-left {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .prism-title {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 5.5vw, 72px);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .prism-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .prism-header-right {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.8s ease forwards 0.35s;
+  }
+
+  .prism-intro {
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--ink-mid);
+    margin-bottom: 32px;
+  }
+
+  .prism-method-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border: 1px solid var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .prism-method-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  /* ─── PRISM VISUAL + PILLARS ─────────────────────── */
+  .prism-body {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 100px;
+  }
+
+  /* Prism geometric visual */
+  .prism-visual {
+    position: sticky;
+    top: 80px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .prism-gem {
+    position: relative;
+    width: 300px;
+    height: 340px;
+    margin: 0 auto;
+  }
+
+  .prism-gem svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 24px 48px rgba(184,151,90,0.15));
+  }
+
+  .prism-letter-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .prism-letter-word {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .prism-letter-sub {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  .prism-tagline {
+    margin-top: 32px;
+    padding: 20px 24px;
+    border-left: 2px solid var(--gold);
+    background: rgba(184,151,90,0.05);
+  }
+
+  .prism-tagline p {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink-mid);
+  }
+
+  /* Pillars list */
+  .prism-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pillar {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .pillar:first-child { border-top: 1px solid var(--rule); }
+
+  .pillar:hover .pillar-letter { color: var(--gold); }
+  .pillar:hover .pillar-bar { width: 100%; }
+  .pillar.active { background: transparent; }
+  .pillar.active .pillar-letter { color: var(--gold); }
+
+  .pillar-index {
+    text-align: center;
+    padding-top: 4px;
+  }
+
+  .pillar-letter {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ink);
+    transition: color 0.3s ease;
+    display: block;
+  }
+
+  .pillar-num {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(26,26,20,0.3);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .pillar-content { padding-top: 2px; }
+
+  .pillar-name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .pillar-subtitle {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .pillar-bar-wrap {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .pillar-bar {
+    height: 100%;
+    background: var(--gold);
+    width: 0;
+    transition: width 0.6s ease;
+  }
+
+  .pillar-desc {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--ink-mid);
+    max-width: 520px;
+  }
+
+  .pillar-outcome {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  .pillar-outcome::before {
+    content: '→';
+    font-size: 14px;
+  }
+
+  /* ─── PROCESS FLOW ───────────────────────────────── */
+  .prism-process {
+    padding: 80px 0;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 80px;
+  }
+
+  .process-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(26,26,20,0.4);
+    margin-bottom: 48px;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: relative;
+    gap: 0;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 60px;
+    right: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(184,151,90,0.2) 100%);
+  }
+
+  .process-step {
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .step-node {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold);
+    background: var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .process-step:hover .step-node {
+    background: var(--gold);
+    color: var(--cream);
+  }
+
+  .step-verb {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .step-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .step-note {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(26,26,20,0.5);
+    line-height: 1.5;
+  }
+
+  /* ─── BOTTOM QUOTE + CTA ─────────────────────────── */
+  .prism-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding-top: 80px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .prism-quote {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .prism-quote blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .prism-quote cite {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: rgba(26,26,20,0.45);
+    font-style: normal;
+  }
+
+  .prism-cta-block {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .prism-cta-block p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ink-mid);
+    margin-bottom: 28px;
+  }
+
+  .prism-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.3s ease, gap 0.3s ease;
+  }
+
+  .prism-cta-link:hover {
+    background: var(--gold);
+    gap: 18px;
+  }
+
+  .prism-cta-link .arrow {
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .prism-cta-link:hover .arrow { transform: translateX(4px); }
+
+  /* ─── ANIMATIONS ─────────────────────────────────── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0) translateX(0); }
+  }
+
+  .pillar:nth-child(1) { animation: fadeUp 0.7s ease forwards 0.55s; }
+  .pillar:nth-child(2) { animation: fadeUp 0.7s ease forwards 0.65s; }
+  .pillar:nth-child(3) { animation: fadeUp 0.7s ease forwards 0.75s; }
+  .pillar:nth-child(4) { animation: fadeUp 0.7s ease forwards 0.85s; }
+  .pillar:nth-child(5) { animation: fadeUp 0.7s ease forwards 0.95s; }
+
+  .process-step:nth-child(1) { animation: fadeUp 0.6s ease forwards 0.3s; }
+  .process-step:nth-child(2) { animation: fadeUp 0.6s ease forwards 0.45s; }
+  .process-step:nth-child(3) { animation: fadeUp 0.6s ease forwards 0.6s; }
+  .process-step:nth-child(4) { animation: fadeUp 0.6s ease forwards 0.75s; }
+  .process-step:nth-child(5) { animation: fadeUp 0.6s ease forwards 0.9s; }
+
+  /* ─── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 960px) {
+    .prism-header,
+    .prism-body,
+    .prism-bottom {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .prism-visual { position: static; }
+    .prism-gem { width: 220px; height: 250px; }
+    .prism-letter-word { font-size: 38px; }
+    .process-steps { grid-template-columns: repeat(3, 1fr); }
+    .process-steps::before { display: none; }
+    .container { padding: 0 24px; }
+    .prism-section { padding: 80px 0 100px; }
+  }
+
+  @media (max-width: 600px) {
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .pillar { grid-template-columns: 48px 1fr; gap: 20px; }
+    .pillar-letter { font-size: 36px; }
+  }
+</style>
+</head>
+
+<body>
+
+<section class="prism-section" id="prism">
+  <div class="container">
+
+    <!-- Label -->
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Proprietary Methodology</span>
+    </div>
+
+    <!-- Header -->
+    <div class="prism-header">
+      <div class="prism-header-left">
+        <h2 class="prism-title">
+          The system<br />
+          behind the<br />
+          <em>preference.</em>
+        </h2>
+      </div>
+      <div class="prism-header-right">
+        <p class="prism-intro">
+          Market preference does not happen by accident. It is engineered — 
+          through a disciplined sequence of diagnostics, positioning, integration, 
+          activation, and measurement. That sequence is The PRISM Method™.
+        </p>
+        <div class="prism-method-tag">
+          <span class="dot"></span>
+          The PRISM Method™ &mdash; Market Preference Engineering
+        </div>
+      </div>
+    </div>
+
+    <!-- Body: Visual + Pillars -->
+    <div class="prism-body">
+
+      <!-- Left: Prism Visual -->
+      <div class="prism-visual">
+        <div class="prism-gem">
+          <svg viewBox="0 0 300 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Prism facets -->
+            <polygon points="150,10 280,110 240,320 150,340 60,320 20,110" 
+              fill="rgba(224,224,208,0.6)" stroke="#B8975A" stroke-width="1"/>
+            <!-- Upper facet highlight -->
+            <polygon points="150,10 280,110 150,130 20,110" 
+              fill="rgba(184,151,90,0.08)" stroke="#B8975A" stroke-width="0.5"/>
+            <!-- Left facet -->
+            <polygon points="150,10 150,130 60,320 20,110" 
+              fill="rgba(184,151,90,0.04)" stroke="#B8975A" stroke-width="0.5"/>
+            <!-- Right facet -->
+            <polygon points="150,10 280,110 240,320 150,130" 
+              fill="rgba(184,151,90,0.06)" stroke="#B8975A" stroke-width="0.5"/>
+            <!-- Bottom point -->
+            <polygon points="60,320 150,340 240,320 150,130" 
+              fill="rgba(184,151,90,0.1)" stroke="#B8975A" stroke-width="0.5"/>
+            <!-- Light refraction lines -->
+            <line x1="150" y1="130" x2="150" y2="340" stroke="#B8975A" stroke-width="0.5" stroke-dasharray="3,6" opacity="0.4"/>
+            <line x1="150" y1="130" x2="80" y2="280" stroke="#B8975A" stroke-width="0.5" stroke-dasharray="3,6" opacity="0.3"/>
+            <line x1="150" y1="130" x2="220" y2="280" stroke="#B8975A" stroke-width="0.5" stroke-dasharray="3,6" opacity="0.3"/>
+            <!-- Center glow -->
+            <circle cx="150" cy="165" r="28" fill="rgba(184,151,90,0.08)"/>
+            <circle cx="150" cy="165" r="18" fill="rgba(184,151,90,0.06)"/>
+          </svg>
+          <div class="prism-letter-display">
+            <span class="prism-letter-word">PRISM</span>
+            <span class="prism-letter-sub">Method™</span>
+          </div>
+        </div>
+
+        <div class="prism-tagline">
+          <p>"The market does not choose the best product. It chooses the brand that feels most worth choosing."</p>
+        </div>
+      </div>
+
+      <!-- Right: 5 Pillars -->
+      <div class="prism-pillars">
+
+        <div class="pillar" data-pillar="P">
+          <div class="pillar-index">
+            <span class="pillar-letter">P</span>
+            <span class="pillar-num">01</span>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-name">Preference Diagnostics</h3>
+            <span class="pillar-subtitle">Map the decision terrain</span>
+            <div class="pillar-bar-wrap"><div class="pillar-bar"></div></div>
+            <p class="pillar-desc">
+              Before building anything, we map the actual decision triggers in your market. 
+              What drives a customer to choose one brand over another? Where does your 
+              commercial system lose the moment of choice? We conduct structured diagnostics 
+              across HCPs, buyers, patients, or channel partners — not surveys, but 
+              decision-architecture mapping.
+            </p>
+            <span class="pillar-outcome">Output: Preference Gap Report + Priority Growth Lever</span>
+          </div>
+        </div>
+
+        <div class="pillar" data-pillar="R">
+          <div class="pillar-index">
+            <span class="pillar-letter">R</span>
+            <span class="pillar-num">02</span>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-name">Relevance Engineering</h3>
+            <span class="pillar-subtitle">Restructure the positioning</span>
+            <div class="pillar-bar-wrap"><div class="pillar-bar"></div></div>
+            <p class="pillar-desc">
+              We rebuild your positioning so that the market immediately understands 
+              why you matter — at the exact moment the decision is being made. 
+              Not what you sell, but why it is the only rational choice. 
+              Relevance Engineering connects your offer to a visible tension, 
+              patient need, or growth opportunity your competitors have missed.
+            </p>
+            <span class="pillar-outcome">Output: Positioning Framework + Differentiated Message Architecture</span>
+          </div>
+        </div>
+
+        <div class="pillar" data-pillar="I">
+          <div class="pillar-index">
+            <span class="pillar-letter">I</span>
+            <span class="pillar-num">03</span>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-name">Integration Architecture</h3>
+            <span class="pillar-subtitle">Align the system</span>
+            <div class="pillar-bar-wrap"><div class="pillar-bar"></div></div>
+            <p class="pillar-desc">
+              Strategy fails in execution because strategy, brand, commercial experience, 
+              and team capability are never aligned into one system. Integration Architecture 
+              eliminates the fragmentation that causes intelligent strategies to stall — 
+              connecting channel, sales, marketing, and leadership into a single coherent 
+              commercial operating model.
+            </p>
+            <span class="pillar-outcome">Output: Commercial Operating Model + GTM Playbook</span>
+          </div>
+        </div>
+
+        <div class="pillar" data-pillar="S">
+          <div class="pillar-index">
+            <span class="pillar-letter">S</span>
+            <span class="pillar-num">04</span>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-name">System Activation</h3>
+            <span class="pillar-subtitle">Build what survives</span>
+            <div class="pillar-bar-wrap"><div class="pillar-bar"></div></div>
+            <p class="pillar-desc">
+              We build the playbooks, KAM frameworks, sales tools, and operational 
+              rhythms that transfer knowledge permanently into your organisation. 
+              The measure of a system is whether it runs without us. 
+              System Activation embeds the commercial logic into the team — 
+              so it survives leadership changes, restructures, and market shifts.
+            </p>
+            <span class="pillar-outcome">Output: KAM Playbooks + Capability Transfer Program</span>
+          </div>
+        </div>
+
+        <div class="pillar" data-pillar="M">
+          <div class="pillar-index">
+            <span class="pillar-letter">M</span>
+            <span class="pillar-num">05</span>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-name">Momentum Measurement</h3>
+            <span class="pillar-subtitle">Iterate until the market moves</span>
+            <div class="pillar-bar-wrap"><div class="pillar-bar"></div></div>
+            <p class="pillar-desc">
+              We establish the preference signals and commercial KPIs that tell 
+              you whether the market is moving in your direction — 
+              prescription velocity, category share, NPS by segment, 
+              deal conversion by ICP tier. And we iterate until the numbers 
+              move. Advisory engagements do not end at the strategy document.
+            </p>
+            <span class="pillar-outcome">Output: Preference KPI Dashboard + Quarterly Iteration Cycle</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Process Flow -->
+    <div class="prism-process">
+      <p class="process-label">How an engagement unfolds</p>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-node">P</div>
+          <span class="step-verb">Diagnose</span>
+          <span class="step-name">Preference Mapping</span>
+          <span class="step-note">Weeks 1–3</span>
+        </div>
+        <div class="process-step">
+          <div class="step-node">R</div>
+          <span class="step-verb">Reposition</span>
+          <span class="step-name">Relevance Design</span>
+          <span class="step-note">Weeks 4–7</span>
+        </div>
+        <div class="process-step">
+          <div class="step-node">I</div>
+          <span class="step-verb">Integrate</span>
+          <span class="step-name">System Architecture</span>
+          <span class="step-note">Weeks 8–14</span>
+        </div>
+        <div class="process-step">
+          <div class="step-node">S</div>
+          <span class="step-verb">Activate</span>
+          <span class="step-name">Capability Build</span>
+          <span class="step-note">Weeks 12–20</span>
+        </div>
+        <div class="process-step">
+          <div class="step-node">M</div>
+          <span class="step-verb">Measure</span>
+          <span class="step-name">Preference Tracking</span>
+          <span class="step-note">Ongoing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Quote + CTA -->
+    <div class="prism-bottom">
+      <div class="prism-quote">
+        <blockquote>
+          "Henry didn't give us a strategy document. He built a commercial 
+          operating system that survived two leadership changes and a portfolio 
+          reshuffle. That's rare."
+        </blockquote>
+        <cite>Regional Commercial Director &mdash; Top-10 Global Pharma, MENA</cite>
+      </div>
+      <div class="prism-cta-block">
+        <p>
+          A PRISM engagement begins with a 30-minute diagnostic conversation. 
+          No pitch. No deck. We map where your commercial preference is breaking 
+          down and identify the highest-leverage intervention to address it first.
+        </p>
+        <a class="prism-cta-link" href="#connect">
+          Book a Strategy Diagnostic
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Pillar bar animation on hover / scroll reveal
+  const pillars = document.querySelectorAll('.pillar');
+
+  pillars.forEach(pillar => {
+    const bar = pillar.querySelector('.pillar-bar');
+
+    pillar.addEventListener('mouseenter', () => {
+      bar.style.width = '100%';
+    });
+    pillar.addEventListener('mouseleave', () => {
+      bar.style.width = '0%';
+    });
+  });
+
+  // Intersection Observer for scroll-triggered animations
+  const animEls = document.querySelectorAll('.process-step, .prism-quote, .prism-cta-block');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeUp 0.7s ease forwards';
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  animEls.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
