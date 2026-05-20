@@ -252,6 +252,81 @@ button:focus-visible {
   overflow: hidden;
 }
 
+/* ─── ARTICLE PROSE (markdown rendered on /insights/[slug]) ───── */
+.article-prose {
+  font-family: 'Outfit', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333333;
+}
+.article-prose > *:first-child { margin-top: 0; }
+.article-prose p {
+  margin: 0 0 1.5em;
+}
+.article-prose h2 {
+  font-family: 'Bodoni Moda', 'Didot', 'Georgia', serif;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 500;
+  line-height: 1.25;
+  color: #1A1A1A;
+  margin: 2.2em 0 0.7em;
+  letter-spacing: -0.01em;
+}
+.article-prose h3 {
+  font-family: 'Outfit', 'Helvetica Neue', sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin: 1.8em 0 0.6em;
+}
+.article-prose ul,
+.article-prose ol {
+  margin: 0 0 1.5em;
+  padding-left: 1.4em;
+}
+.article-prose li {
+  margin-bottom: 0.6em;
+  line-height: 1.7;
+}
+.article-prose strong { font-weight: 600; color: #1A1A1A; }
+.article-prose em { font-style: italic; }
+.article-prose a {
+  color: #1A1A1A;
+  text-decoration: none;
+  background-image: linear-gradient(#DFFF00, #DFFF00);
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s;
+}
+.article-prose a:hover { background-size: 100% 100%; }
+.article-prose hr {
+  border: none;
+  border-top: 1px solid rgba(26, 26, 26, 0.14);
+  margin: 2.5em 0;
+}
+.article-prose blockquote {
+  border-left: 3px solid #DFFF00;
+  padding-left: 24px;
+  margin: 1.8em 0;
+  font-family: 'Bodoni Moda', 'Didot', 'Georgia', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: #1A1A1A;
+}
+.article-prose code {
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 0.9em;
+  background: #F5F5EE;
+  padding: 2px 6px;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+}
+/* References / hashtags at the foot of articles read smaller and muted */
+.article-prose h3 + p,
+.article-prose p:last-child {
+  color: #4A4A40;
+}
+
 @media (max-width: 860px) {
   .grid-asym { grid-template-columns: 1fr !important; gap: 40px !important; }
   .hero-title { font-size: 12vw !important; }

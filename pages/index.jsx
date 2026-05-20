@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { getPublishedCaseStudies } from "../data/case-studies";
+import { getPublishedArticles } from "../data/insights";
 
 /*
  * ═══════════════════════════════════════════════════════════════
@@ -255,6 +256,7 @@ export default function MarketPreferencePage() {
     { label: "Thesis", href: "#thesis" },
     { label: "Engagements", href: "#work" },
     { label: "Case Studies", href: "/work" },
+    { label: "Insights", href: "/insights" },
     { label: "Connect", href: "#connect" },
   ];
 
@@ -1009,6 +1011,78 @@ export default function MarketPreferencePage() {
               </footer>
             </blockquote>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* INSIGHTS TEASER (links to /insights)                     */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section aria-labelledby="insights-heading" style={{
+        padding: `100px ${gutter} 120px`,
+        background: T.bgAlt,
+        borderTop: `1px solid ${T.line}`,
+      }}>
+        <div style={{ maxWidth: maxW, margin: "0 auto" }}>
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
+              <div>
+                <Mono style={{ color: T.inkFaint, display: "block", marginBottom: 14 }}>Insights</Mono>
+                <h2 id="insights-heading" className="sect-title" style={{
+                  fontFamily: F.serif,
+                  fontSize: "clamp(28px, 3.5vw, 40px)",
+                  fontWeight: 400, lineHeight: 1.2,
+                  color: T.ink, maxWidth: 560,
+                }}>
+                  Notes on making the market <em>choose you</em>.
+                </h2>
+              </div>
+              <Link href="/insights" style={{
+                fontFamily: F.mono, fontSize: 11, fontWeight: 500,
+                letterSpacing: "0.12em", textTransform: "uppercase",
+                color: T.ink, textDecoration: "none",
+                padding: "12px 24px",
+                border: `1.5px solid ${T.ink}`,
+                transition: "all 0.25s",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = T.neon; e.currentTarget.style.borderColor = T.neon; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = T.ink; }}
+              >Read all insights →</Link>
+            </div>
+          </Reveal>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: 24,
+          }}>
+            {getPublishedArticles().slice(0, 3).map((a, i) => (
+              <Reveal key={a.slug} delay={i * 0.07}>
+                <Link href={`/insights/${a.slug}`} style={{
+                  display: "flex", flexDirection: "column",
+                  background: T.white, border: `1px solid ${T.lineMed}`,
+                  textDecoration: "none", color: "inherit", height: "100%",
+                  transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s",
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.borderColor = T.ink; e.currentTarget.style.boxShadow = "0 12px 30px rgba(26,26,26,0.08)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = T.lineMed; e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  <div style={{ padding: 24, display: "flex", flexDirection: "column", flex: 1 }}>
+                    <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
+                      <Mono style={{ color: T.ink }}>{a.category}</Mono>
+                      <Mono style={{ color: T.inkFaint }}>·</Mono>
+                      <Mono style={{ color: T.inkFaint }}>{a.readingTime}</Mono>
+                    </div>
+                    <h3 style={{
+                      fontFamily: F.serif, fontSize: 20, fontWeight: 500,
+                      lineHeight: 1.3, color: T.ink, marginBottom: 12,
+                    }}>{a.title}</h3>
+                    <p style={{ fontSize: 13, lineHeight: 1.65, color: T.inkMuted, marginBottom: 16, flex: 1 }}>{a.excerpt}</p>
+                    <Mono style={{ color: T.ink }}>Read →</Mono>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
